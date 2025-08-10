@@ -13,7 +13,7 @@ if ('serviceWorker' in navigator) {
         console.log('SW registered successfully:', registration.scope);
       })
       .catch((registrationError) => {
-        console.log('Falha no registro do SW:', registrationError);
+        console.log('SW registration failed:', registrationError);
       });
   });
 }
