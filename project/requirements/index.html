@@ -1,0 +1,2441 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentação completa da aplicação FinBoost+ (Frontend e Backend)">
+      
+      
+        <meta name="author" content="Equipe FinBoost+">
+      
+      
+      
+        <link rel="prev" href="../architecture/">
+      
+      
+        <link rel="next" href="../diagrams/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Requisitos - FinBoost+ Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#requisitos-do-sistema-finboost" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="FinBoost+ Documentation" class="md-header__button md-logo" aria-label="FinBoost+ Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            FinBoost+ Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Requisitos
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Finboostplus/finboostplus-app" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    finboostplus-app
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
+          
+  
+  
+  Projeto
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../frontend/" class="md-tabs__link">
+          
+  
+  
+  Frontend
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../backend/index.md" class="md-tabs__link">
+          
+  
+  
+  Backend
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../development/" class="md-tabs__link">
+          
+  
+  
+  Desenvolvimento
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="FinBoost+ Documentation" class="md-nav__button md-logo" aria-label="FinBoost+ Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    FinBoost+ Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Finboostplus/finboostplus-app" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    finboostplus-app
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Projeto
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Projeto
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Visão Geral
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Arquitetura
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Requisitos
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Requisitos
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivo-do-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Objetivo do Sistema
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-funcionais-rf" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ Requisitos Funcionais (RF)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚙️ Requisitos Funcionais (RF)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rf01-cadastro-e-gestao-de-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF01 - Cadastro e Gestão de Usuário
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf02-login-e-autenticacao-segura" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF02 - Login e Autenticação Segura
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf03-criacao-e-gerenciamento-de-grupos" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF03 - Criação e Gerenciamento de Grupos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf04-cadastro-e-registro-de-despesas-com-crud-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF04 - Cadastro e Registro de Despesas com CRUD Completo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf05-calculo-automatico-de-saldos" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF05 - Cálculo Automático de Saldos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf06-dashboard-resumo" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF06 - Dashboard Resumo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf07-categorias-de-despesas" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF07 - Categorias de Despesas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf08-metas-de-economia-importante" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF08 - Metas de Economia (Importante)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf09-alertas-simples-desejavel" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF09 - Alertas Simples (Desejável)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf10-navegacao-e-usabilidade-avancada" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF10 - Navegação e Usabilidade Avançada
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf11-listagem-e-organizacao-avancada" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF11 - Listagem e Organização Avançada
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf12-sistema-de-preferencias-e-personalizacao-desejavel" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF12 - Sistema de Preferências e Personalização (Desejável)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-nao-funcionais-rnf" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛡️ Requisitos Não Funcionais (RNF)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛡️ Requisitos Não Funcionais (RNF)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rnf01-performance-e-tempo-de-resposta" class="md-nav__link">
+    <span class="md-ellipsis">
+      RNF01 - Performance e Tempo de Resposta
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rnf02-capacidade-e-escalabilidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      RNF02 - Capacidade e Escalabilidade
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rnf03-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      RNF03 - Segurança
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rnf04-usabilidade-e-acessibilidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      RNF04 - Usabilidade e Acessibilidade
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rnf05-confiabilidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      RNF05 - Confiabilidade
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rnf06-manutenibilidade-e-devops" class="md-nav__link">
+    <span class="md-ellipsis">
+      RNF06 - Manutenibilidade e DevOps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rnf07-portabilidade-e-compatibilidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      RNF07 - Portabilidade e Compatibilidade
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stack-tecnologica" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Stack Tecnológica
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 Stack Tecnológica">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frontend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infraestrutura" class="md-nav__link">
+    <span class="md-ellipsis">
+      Infraestrutura
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regras-de-negocio" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Regras de Negócio
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Regras de Negócio">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rn01-usuarios-e-grupos" class="md-nav__link">
+    <span class="md-ellipsis">
+      RN01 - Usuários e Grupos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rn02-despesas" class="md-nav__link">
+    <span class="md-ellipsis">
+      RN02 - Despesas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rn03-saldos" class="md-nav__link">
+    <span class="md-ellipsis">
+      RN03 - Saldos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rn04-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      RN04 - Segurança
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#criterios-de-aceitacao-do-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Critérios de Aceitação do MVP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Critérios de Aceitação do MVP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#funcional" class="md-nav__link">
+    <span class="md-ellipsis">
+      Funcional
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tecnico" class="md-nav__link">
+    <span class="md-ellipsis">
+      Técnico
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qualidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      Qualidade
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#priorizacao-moscow" class="md-nav__link">
+    <span class="md-ellipsis">
+      📈 Priorização (MoSCoW)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📈 Priorização (MoSCoW)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-have-obrigatorio" class="md-nav__link">
+    <span class="md-ellipsis">
+      Must Have (Obrigatório)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#should-have-importante" class="md-nav__link">
+    <span class="md-ellipsis">
+      Should Have (Importante)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#could-have-desejavel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Could Have (Desejável)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wont-have-nao-sera-feito-no-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Won't Have (Não será feito no MVP)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contexto-academico" class="md-nav__link">
+    <span class="md-ellipsis">
+      📚 Contexto Acadêmico
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 Contexto Acadêmico">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#restricoes-do-projeto" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restrições do Projeto
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alinhamento-com-requisitos-do-curso" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alinhamento com Requisitos do Curso
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagrams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Diagramas
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-contract/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Contract
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Frontend
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Frontend
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Visão Geral
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../frontend/getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../frontend/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Arquitetura
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../frontend/components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Componentes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../frontend/pages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Páginas
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../frontend/hooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hooks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../frontend/styling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Styling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Backend
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Backend
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Visão Geral
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend/getting-started.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend/architecture.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Arquitetura
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend/api-endpoints.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Endpoints
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend/database.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Database
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend/authentication.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Autenticação
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Desenvolvimento
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Desenvolvimento
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Visão Geral
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../frontend/ai_usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Uso de IA - Frontend
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../frontend/ai_prompts_log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Log de Prompts - Frontend
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend/ai_usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Uso de IA - Backend
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend/ai_prompts_log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Log de Prompts - Backend
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivo-do-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Objetivo do Sistema
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-funcionais-rf" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ Requisitos Funcionais (RF)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚙️ Requisitos Funcionais (RF)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rf01-cadastro-e-gestao-de-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF01 - Cadastro e Gestão de Usuário
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf02-login-e-autenticacao-segura" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF02 - Login e Autenticação Segura
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf03-criacao-e-gerenciamento-de-grupos" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF03 - Criação e Gerenciamento de Grupos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf04-cadastro-e-registro-de-despesas-com-crud-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF04 - Cadastro e Registro de Despesas com CRUD Completo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf05-calculo-automatico-de-saldos" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF05 - Cálculo Automático de Saldos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf06-dashboard-resumo" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF06 - Dashboard Resumo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf07-categorias-de-despesas" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF07 - Categorias de Despesas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf08-metas-de-economia-importante" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF08 - Metas de Economia (Importante)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf09-alertas-simples-desejavel" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF09 - Alertas Simples (Desejável)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf10-navegacao-e-usabilidade-avancada" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF10 - Navegação e Usabilidade Avançada
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf11-listagem-e-organizacao-avancada" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF11 - Listagem e Organização Avançada
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf12-sistema-de-preferencias-e-personalizacao-desejavel" class="md-nav__link">
+    <span class="md-ellipsis">
+      RF12 - Sistema de Preferências e Personalização (Desejável)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-nao-funcionais-rnf" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛡️ Requisitos Não Funcionais (RNF)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛡️ Requisitos Não Funcionais (RNF)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rnf01-performance-e-tempo-de-resposta" class="md-nav__link">
+    <span class="md-ellipsis">
+      RNF01 - Performance e Tempo de Resposta
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rnf02-capacidade-e-escalabilidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      RNF02 - Capacidade e Escalabilidade
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rnf03-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      RNF03 - Segurança
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rnf04-usabilidade-e-acessibilidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      RNF04 - Usabilidade e Acessibilidade
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rnf05-confiabilidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      RNF05 - Confiabilidade
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rnf06-manutenibilidade-e-devops" class="md-nav__link">
+    <span class="md-ellipsis">
+      RNF06 - Manutenibilidade e DevOps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rnf07-portabilidade-e-compatibilidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      RNF07 - Portabilidade e Compatibilidade
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stack-tecnologica" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Stack Tecnológica
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 Stack Tecnológica">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frontend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infraestrutura" class="md-nav__link">
+    <span class="md-ellipsis">
+      Infraestrutura
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regras-de-negocio" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Regras de Negócio
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Regras de Negócio">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rn01-usuarios-e-grupos" class="md-nav__link">
+    <span class="md-ellipsis">
+      RN01 - Usuários e Grupos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rn02-despesas" class="md-nav__link">
+    <span class="md-ellipsis">
+      RN02 - Despesas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rn03-saldos" class="md-nav__link">
+    <span class="md-ellipsis">
+      RN03 - Saldos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rn04-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      RN04 - Segurança
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#criterios-de-aceitacao-do-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Critérios de Aceitação do MVP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Critérios de Aceitação do MVP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#funcional" class="md-nav__link">
+    <span class="md-ellipsis">
+      Funcional
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tecnico" class="md-nav__link">
+    <span class="md-ellipsis">
+      Técnico
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qualidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      Qualidade
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#priorizacao-moscow" class="md-nav__link">
+    <span class="md-ellipsis">
+      📈 Priorização (MoSCoW)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📈 Priorização (MoSCoW)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-have-obrigatorio" class="md-nav__link">
+    <span class="md-ellipsis">
+      Must Have (Obrigatório)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#should-have-importante" class="md-nav__link">
+    <span class="md-ellipsis">
+      Should Have (Importante)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#could-have-desejavel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Could Have (Desejável)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wont-have-nao-sera-feito-no-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Won't Have (Não será feito no MVP)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contexto-academico" class="md-nav__link">
+    <span class="md-ellipsis">
+      📚 Contexto Acadêmico
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 Contexto Acadêmico">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#restricoes-do-projeto" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restrições do Projeto
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alinhamento-com-requisitos-do-curso" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alinhamento com Requisitos do Curso
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="requisitos-do-sistema-finboost">📋 Requisitos do Sistema - FinBoost+</h1>
+<p>Este documento especifica os requisitos funcionais e não funcionais do sistema FinBoost+, baseado no documento oficial de requisitos do projeto acadêmico.</p>
+<hr />
+<h2 id="objetivo-do-sistema">🎯 <strong>Objetivo do Sistema</strong></h2>
+<p>Desenvolver uma aplicação web para <strong>controle financeiro compartilhado</strong> que permita a criação de grupos, registro de despesas e cálculo automático de saldos entre participantes. Este é um projeto final de curso com prazo até dezembro de 2025.</p>
+<hr />
+<h2 id="requisitos-funcionais-rf">⚙️ <strong>Requisitos Funcionais (RF)</strong></h2>
+<h3 id="rf01-cadastro-e-gestao-de-usuario"><strong>RF01 - Cadastro e Gestão de Usuário</strong></h3>
+<p><strong>Prioridade:</strong> Essencial<br />
+- Cadastro com nome, email e senha
+- Login via email/senha ou OAuth2 (Google)
+- Gestão completa de perfil
+- Entidade "Perfil" com dados pessoais e preferências
+- Validação rigorosa de dados de entrada
+- Criptografia de senhas (hash + salt)
+- Verificação de email opcional</p>
+<h3 id="rf02-login-e-autenticacao-segura"><strong>RF02 - Login e Autenticação Segura</strong></h3>
+<p><strong>Prioridade:</strong> Essencial<br />
+- Login tradicional (email + senha)
+- Implementação de OAuth2 para login social (Google)
+- Emissão de token JWT com expiração e refresh token
+- Fluxo de recuperação de senha por email (link único, validade limitada)
+- 2FA opcional via OTP para ações críticas
+- Proteção contra ataques de força bruta</p>
+<h3 id="rf03-criacao-e-gerenciamento-de-grupos"><strong>RF03 - Criação e Gerenciamento de Grupos</strong></h3>
+<p><strong>Prioridade:</strong> Essencial<br />
+- Criação de grupos com nome e descrição
+- Convite de membros por email ou código de convite
+- Visualização de membros
+- Aceitação/recusa de convites
+- Definição automática do criador como administrador</p>
+<h3 id="rf04-cadastro-e-registro-de-despesas-com-crud-completo"><strong>RF04 - Cadastro e Registro de Despesas com CRUD Completo</strong></h3>
+<p><strong>Prioridade:</strong> Essencial<br />
+- Registro com valor, descrição, data, categoria, pagador, participantes
+- CRUD completo para todas as entidades
+- Filtros dinâmicos e paginação em listagens
+- Consulta detalhada incluindo relacionamentos e metadados
+- Pesquisa avançada com filtros em múltiplos campos
+- Divisão igual ou personalizada de despesas
+- Histórico de alterações</p>
+<h3 id="rf05-calculo-automatico-de-saldos"><strong>RF05 - Cálculo Automático de Saldos</strong></h3>
+<p><strong>Prioridade:</strong> Essencial<br />
+- Cálculo automático de quanto cada participante deve ou recebe
+- Saldo individual e resumo de "quem deve para quem"
+- Atualização em tempo real após mudanças</p>
+<h3 id="rf06-dashboard-resumo"><strong>RF06 - Dashboard Resumo</strong></h3>
+<p><strong>Prioridade:</strong> Essencial<br />
+- Visão geral das finanças do grupo e usuário
+- Total gasto, últimas despesas, saldos
+- Débitos e créditos consolidados</p>
+<h3 id="rf07-categorias-de-despesas"><strong>RF07 - Categorias de Despesas</strong></h3>
+<p><strong>Prioridade:</strong> Essencial<br />
+- Categorias básicas: Alimentação, Transporte, Casa, Lazer, Outros
+- Organização e visualização por categoria</p>
+<h3 id="rf08-metas-de-economia-importante"><strong>RF08 - Metas de Economia</strong> <em>(Importante)</em></h3>
+<p><strong>Prioridade:</strong> Importante<br />
+- Definição de metas individuais ou familiares
+- Acompanhamento de progresso
+- Alertas de acompanhamento</p>
+<h3 id="rf09-alertas-simples-desejavel"><strong>RF09 - Alertas Simples</strong> <em>(Desejável)</em></h3>
+<p><strong>Prioridade:</strong> Desejável<br />
+- Alertas por email quando limites de orçamento forem ultrapassados
+- Configuração de parâmetros pelo usuário</p>
+<h3 id="rf10-navegacao-e-usabilidade-avancada"><strong>RF10 - Navegação e Usabilidade Avançada</strong></h3>
+<p><strong>Prioridade:</strong> Importante<br />
+- Navegação fluida com animações suaves
+- Estrutura de menus e rotas clara
+- Breadcrumbs para orientação
+- Interface responsiva (mobile-first)
+- Feedback visual claro e em tempo real
+- Navegação por teclado para acessibilidade</p>
+<h3 id="rf11-listagem-e-organizacao-avancada"><strong>RF11 - Listagem e Organização Avançada</strong></h3>
+<p><strong>Prioridade:</strong> Importante<br />
+- Listas paginadas ou carregamento contínuo (infinite scroll)
+- Reorganização de itens (drag and drop)
+- Filtros dinâmicos e ordenação múltipla
+- Lazy loading para performance
+- Pesquisa em tempo real
+- Exportação de dados básica</p>
+<h3 id="rf12-sistema-de-preferencias-e-personalizacao-desejavel"><strong>RF12 - Sistema de Preferências e Personalização</strong> <em>(Desejável)</em></h3>
+<p><strong>Prioridade:</strong> Desejável<br />
+- Tema claro/escuro
+- Configurações de notificações
+- Preferências de visualização (formato de data, moeda)
+- Configurações de privacidade
+- Sincronização entre dispositivos</p>
+<hr />
+<h2 id="requisitos-nao-funcionais-rnf">🛡️ <strong>Requisitos Não Funcionais (RNF)</strong></h2>
+<h3 id="rnf01-performance-e-tempo-de-resposta"><strong>RNF01 - Performance e Tempo de Resposta</strong></h3>
+<ul>
+<li>Operações básicas (login, cadastro): máximo 3 segundos</li>
+<li>Cálculos de saldo: máximo 5 segundos</li>
+<li>Carregamento de páginas: máximo 4 segundos</li>
+<li>Cache distribuído (Redis ou equivalente)</li>
+<li>Lazy loading e otimização de queries</li>
+<li>Evitar re-renderizações desnecessárias no frontend</li>
+</ul>
+<h3 id="rnf02-capacidade-e-escalabilidade"><strong>RNF02 - Capacidade e Escalabilidade</strong></h3>
+<ul>
+<li>Suportar pelo menos 50 usuários simultâneos</li>
+<li>Máximo 1000 usuários cadastrados</li>
+<li>Máximo 100 grupos</li>
+<li>Máximo 10.000 despesas</li>
+<li>Arquitetura modular ou microsserviços</li>
+<li>Preparação para load balancing futuro</li>
+</ul>
+<h3 id="rnf03-seguranca"><strong>RNF03 - Segurança</strong></h3>
+<ul>
+<li>Senhas criptografadas (hash + salt)</li>
+<li>Sessões seguras com JWT e refresh token</li>
+<li>OAuth2 para login social (Google)</li>
+<li>2FA opcional via OTP</li>
+<li>Proteção contra OWASP Top 10 (SQL Injection, XSS, CSRF)</li>
+<li>HTTPS obrigatório em produção</li>
+<li>Rate limiting para prevenir ataques</li>
+<li>Cabeçalhos de segurança (CSP, HSTS, X-Frame-Options)</li>
+</ul>
+<h3 id="rnf04-usabilidade-e-acessibilidade"><strong>RNF04 - Usabilidade e Acessibilidade</strong></h3>
+<ul>
+<li>Interface intuitiva (máximo 3 cliques para funcionalidades principais)</li>
+<li>Interface responsiva (mobile-first)</li>
+<li>Contraste adequado de cores</li>
+<li>Textos alternativos para imagens</li>
+<li>Navegação por teclado</li>
+<li>Compatibilidade com leitores de tela</li>
+<li>Feedback visual claro e em tempo real</li>
+<li>Animações suaves e não invasivas</li>
+</ul>
+<h3 id="rnf05-confiabilidade"><strong>RNF05 - Confiabilidade</strong></h3>
+<ul>
+<li>95% de disponibilidade durante horário comercial</li>
+<li>Backup automático diário do banco de dados</li>
+<li>Mensagens de erro claras e acionáveis</li>
+<li>Não perder dados do usuário em caso de erro</li>
+<li>Logs de erro detalhados para debug</li>
+<li>Monitoramento de saúde da aplicação</li>
+</ul>
+<h3 id="rnf06-manutenibilidade-e-devops"><strong>RNF06 - Manutenibilidade e DevOps</strong></h3>
+<ul>
+<li>Código bem estruturado com padrões consistentes</li>
+<li>Separação clara de responsabilidades (MVC)</li>
+<li>Comentários em funções complexas</li>
+<li>Testes automatizados (coverage &gt; 80%)</li>
+<li>Uso de Git com commits descritivos</li>
+<li>Pipeline de CI/CD (GitHub Actions)</li>
+<li>Containerização com Docker</li>
+<li>Documentação técnica completa (Swagger/OpenAPI)</li>
+</ul>
+<h3 id="rnf07-portabilidade-e-compatibilidade"><strong>RNF07 - Portabilidade e Compatibilidade</strong></h3>
+<ul>
+<li>Compatibilidade com Chrome, Firefox, Edge (versões atuais)</li>
+<li>Responsividade: Mobile (320px+), Tablet (768px+), Desktop (1024px+)</li>
+<li>Containerização com Docker</li>
+<li>Configuração via variáveis de ambiente</li>
+<li>Deploy automatizado via CI/CD</li>
+<li>Suporte a múltiplos ambientes (dev, staging, prod)</li>
+</ul>
+<hr />
+<h2 id="stack-tecnologica">🔧 <strong>Stack Tecnológica</strong></h2>
+<h3 id="frontend"><strong>Frontend</strong></h3>
+<ul>
+<li><strong>Framework:</strong> React 19+</li>
+<li><strong>Build Tool:</strong> Vite 7+</li>
+<li><strong>Styling:</strong> CSS/TailwindCSS</li>
+<li><strong>Roteamento:</strong> React Router</li>
+<li><strong>Estado Global:</strong> Context API ou Redux</li>
+<li><strong>HTTP Client:</strong> Axios ou Fetch API</li>
+<li><strong>Testing:</strong> Jest + React Testing Library</li>
+</ul>
+<h3 id="backend"><strong>Backend</strong></h3>
+<ul>
+<li><strong>Linguagem:</strong> Java 21+</li>
+<li><strong>Framework:</strong> Spring Boot 3.5+</li>
+<li><strong>Security:</strong> Spring Security + JWT</li>
+<li><strong>Database:</strong> PostgreSQL 15+</li>
+<li><strong>ORM:</strong> JPA/Hibernate</li>
+<li><strong>Cache:</strong> Redis (futuro)</li>
+<li><strong>Testing:</strong> JUnit 5 + Mockito</li>
+</ul>
+<h3 id="infraestrutura"><strong>Infraestrutura</strong></h3>
+<ul>
+<li><strong>Containerização:</strong> Docker + Docker Compose</li>
+<li><strong>CI/CD:</strong> GitHub Actions</li>
+<li><strong>Documentação:</strong> MkDocs Material + Swagger/OpenAPI</li>
+<li><strong>Monitoramento:</strong> Spring Actuator</li>
+<li><strong>Deploy:</strong> Heroku/Railway (MVP)</li>
+</ul>
+<hr />
+<h2 id="regras-de-negocio">📊 <strong>Regras de Negócio</strong></h2>
+<h3 id="rn01-usuarios-e-grupos"><strong>RN01 - Usuários e Grupos</strong></h3>
+<ul>
+<li>Um usuário pode participar de múltiplos grupos</li>
+<li>Um grupo deve ter pelo menos 2 participantes</li>
+<li>Apenas o administrador pode excluir o grupo</li>
+<li>Usuários podem sair de grupos voluntariamente</li>
+</ul>
+<h3 id="rn02-despesas"><strong>RN02 - Despesas</strong></h3>
+<ul>
+<li>Valor da despesa deve ser positivo e maior que zero</li>
+<li>Data da despesa não pode ser futura</li>
+<li>Participantes da divisão devem ser membros do grupo</li>
+<li>Soma das divisões deve igualar o valor total</li>
+</ul>
+<h3 id="rn03-saldos"><strong>RN03 - Saldos</strong></h3>
+<ul>
+<li>Saldos são calculados automaticamente</li>
+<li>Valores positivos indicam crédito</li>
+<li>Valores negativos indicam débito</li>
+<li>Simplificação de dívidas para minimizar transações</li>
+</ul>
+<h3 id="rn04-seguranca"><strong>RN04 - Segurança</strong></h3>
+<ul>
+<li>Usuários só acessam grupos dos quais participam</li>
+<li>Apenas criador pode editar/excluir suas despesas</li>
+<li>Tokens JWT expiram em 24 horas</li>
+<li>Senhas não podem ser visualizadas em texto plano</li>
+</ul>
+<hr />
+<h2 id="criterios-de-aceitacao-do-mvp">🎯 <strong>Critérios de Aceitação do MVP</strong></h2>
+<h3 id="funcional"><strong>Funcional</strong></h3>
+<ul>
+<li>[x] Usuário consegue se cadastrar e fazer login</li>
+<li>[x] Usuário consegue criar e participar de grupos</li>
+<li>[x] Usuário consegue registrar despesas compartilhadas</li>
+<li>[x] Sistema calcula saldos automaticamente</li>
+<li>[x] Interface é responsiva e intuitiva</li>
+</ul>
+<h3 id="tecnico"><strong>Técnico</strong></h3>
+<ul>
+<li>[ ] Cobertura de testes &gt; 80%</li>
+<li>[ ] Performance adequada (carregamento &lt; 4s)</li>
+<li>[x] Segurança implementada (JWT, validações)</li>
+<li>[x] Documentação completa</li>
+<li>[x] Deploy automatizado funcionando</li>
+</ul>
+<h3 id="qualidade"><strong>Qualidade</strong></h3>
+<ul>
+<li>[x] Código segue padrões estabelecidos</li>
+<li>[x] Interface acessível e usável</li>
+<li>[x] Tratamento adequado de erros</li>
+<li>[x] Logs e monitoramento implementados</li>
+</ul>
+<hr />
+<h2 id="priorizacao-moscow">📈 <strong>Priorização (MoSCoW)</strong></h2>
+<h3 id="must-have-obrigatorio"><strong>Must Have (Obrigatório)</strong></h3>
+<ul>
+<li>Autenticação básica (RF01, RF02)</li>
+<li>Gestão de grupos (RF03)</li>
+<li>Registro de despesas (RF04)</li>
+<li>Cálculo de saldos (RF05)</li>
+<li>Interface responsiva (RF10)</li>
+</ul>
+<h3 id="should-have-importante"><strong>Should Have (Importante)</strong></h3>
+<ul>
+<li>Dashboard principal (RF06)</li>
+<li>Categorias de despesas (RF07)</li>
+<li>Navegação avançada (RF10)</li>
+<li>Listagem otimizada (RF11)</li>
+</ul>
+<h3 id="could-have-desejavel"><strong>Could Have (Desejável)</strong></h3>
+<ul>
+<li>Metas de economia (RF08)</li>
+<li>Alertas simples (RF09)</li>
+<li>Personalização (RF12)</li>
+<li>Exportação de relatórios</li>
+</ul>
+<h3 id="wont-have-nao-sera-feito-no-mvp"><strong>Won't Have (Não será feito no MVP)</strong></h3>
+<ul>
+<li>Login social completo (apenas Google)</li>
+<li>Notificações push</li>
+<li>Integração bancária</li>
+<li>Múltiplas moedas</li>
+<li>App mobile nativo</li>
+<li>IA/Sugestões inteligentes</li>
+</ul>
+<hr />
+<h2 id="contexto-academico">📚 <strong>Contexto Acadêmico</strong></h2>
+<h3 id="restricoes-do-projeto"><strong>Restrições do Projeto</strong></h3>
+<ul>
+<li><strong>Prazo:</strong> Até dezembro de 2025</li>
+<li><strong>Equipe:</strong> 10 pessoas (6 backend, 2 frontend, 1 gestão, 1 design)</li>
+<li><strong>Orçamento:</strong> Projeto acadêmico (sem orçamento para serviços pagos)</li>
+<li><strong>Foco:</strong> Demonstrar competências técnicas do curso</li>
+</ul>
+<h3 id="alinhamento-com-requisitos-do-curso"><strong>Alinhamento com Requisitos do Curso</strong></h3>
+<p><strong>Backend:</strong>
+- ✅ Autenticação e segurança (OAuth2, JWT, 2FA)
+- ✅ CRUD completo com filtros e paginação
+- ✅ API RESTful documentada (Swagger)
+- ✅ Testes automatizados
+- ✅ Cache e otimização</p>
+<p><strong>Frontend:</strong>
+- ✅ Interface responsiva e acessível
+- ✅ Navegação fluida com React Router
+- ✅ Gerenciamento de estado
+- ✅ Componentização
+- ✅ Testes unitários</p>
+<p><strong>DevOps:</strong>
+- ✅ Containerização com Docker
+- ✅ Pipeline CI/CD
+- ✅ Documentação técnica
+- ✅ Versionamento com Git</p>
+<hr />
+<div align="center">
+  <strong>📋 Requisitos definidos com foco no valor</strong><br/>
+  <em>MVP viável e escalável para o futuro</em>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>
