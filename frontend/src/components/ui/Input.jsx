@@ -10,11 +10,13 @@ export default function InputUI({
   required,
   step,
   readonly,
+  defaultValue,
 }) {
   return (
     <Input
       id={id}
       value={value}
+      defaultValue={defaultValue}
       name={name}
       onChange={onChange}
       type={type}

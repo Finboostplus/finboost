@@ -2,6 +2,13 @@ import { Outlet } from 'react-router';
 import Header from './Header';
 import { Suspense } from 'react';
 import Loading from '../Loading';
+import { ToastContainer } from 'react-toastify';
+import {
+  MdInfo, // Info
+  MdError, // Error
+  MdCheckCircle, // Success
+  MdWarning, // Warning
+} from 'react-icons/md';
 
 export default function Layout() {
   return (
@@ -16,6 +23,26 @@ export default function Layout() {
           </div>
         </div>
       </main>
+      <ToastContainer
+        position="top-right"
+        limit={2}
+        style={{ right: 30 }}
+        icon={({ type }) => {
+          const baseClass = 'text-4xl'; // Tamanho padrão para todos
+          switch (type) {
+            case 'info':
+              return <MdInfo className={`text-info ${baseClass}`} />;
+            case 'error':
+              return <MdError className={`text-error ${baseClass}`} />;
+            case 'success':
+              return <MdCheckCircle className={`text-success ${baseClass}`} />;
+            case 'warning':
+              return <MdWarning className={`text-warning ${baseClass}`} />;
+            default:
+              return null;
+          }
+        }}
+      />
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { useLocalStorage } from '../hooks/useLocalStorage';
 const KEY_THEME_CONTEXT = 'app_theme';
 const THEME_DEFAULT = 'light';
 
-const ThemeContext = createContext();
+export const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useLocalStorage(KEY_THEME_CONTEXT, THEME_DEFAULT);

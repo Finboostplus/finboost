@@ -13,7 +13,7 @@ export default function ExpenseForm() {
   return (
     <Form
       method="post"
-      className="grid md:grid-cols-2 gap-6 max-md:flex max-md:flex-col"
+      className="grid md:grid-cols-[100%] max-md:flex max-md:flex-col"
       aria-label="Formulário para adicionar nova despesa"
     >
       <FormFieldsExpenses />
