@@ -40,7 +40,7 @@ const PWAInstaller = () => {
     const { outcome } = await deferredPrompt.userChoice;
 
     if (outcome === 'accepted') {
-      console.log('Usuário aceitou instalar a PWA');
+      console.log('User accepted PWA installation');
     } else {
       console.log('Usuário rejeitou instalar a PWA');
     }
