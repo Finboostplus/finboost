@@ -42,7 +42,7 @@ const PWAInstaller = () => {
     if (outcome === 'accepted') {
       console.log('User accepted PWA installation');
     } else {
-      console.log('Usuário rejeitou instalar a PWA');
+      console.log('User rejected PWA installation');
     }
 
     // Limpa o prompt
