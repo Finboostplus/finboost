@@ -63,7 +63,7 @@ export default function LoginForm() {
               href="/register"
               className="text-sm text-primary hover:underline"
             >
-              Já possui uma conta?
+              Ainda não possui uma conta?
             </a>
           </MenuItem>
         </Menu>
