@@ -18,7 +18,7 @@ const PWAInstaller = () => {
       // Esconde o botão quando o app for instalado
       setShowInstallButton(false);
       setDeferredPrompt(null);
-      console.log('PWA foi instalada');
+      console.log('PWA was installed');
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
