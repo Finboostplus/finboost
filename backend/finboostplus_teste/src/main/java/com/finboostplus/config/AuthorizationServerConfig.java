@@ -3,6 +3,8 @@ package com.finboostplus.config;
 import com.finboostplus.config.customgrant.CustomPasswordAuthenticationConverter;
 import com.finboostplus.config.customgrant.CustomPasswordAuthenticationProvider;
 import com.finboostplus.config.customgrant.CustomUserAuthorities;
+import org.springframework.security.core.GrantedAuthority;
+
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -11,6 +13,7 @@ import java.security.interfaces.RSAPublicKey;
 import java.time.Duration;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +22,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -47,6 +52,8 @@ import org.springframework.security.oauth2.server.authorization.token.OAuth2Acce
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.oauth2.server.authorization.token.OAuth2RefreshTokenGenerator;
+
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -62,6 +69,9 @@ public class AuthorizationServerConfig {
 
     @Value("${security.jwt.duration}")
     private Integer jwtDurationSeconds;
+
+    @Value("${security.refresh-token.duration}")
+    private Integer refreshTokenDurationDays;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -101,7 +111,6 @@ public class AuthorizationServerConfig {
 
     @Bean
     public RegisteredClientRepository registeredClientRepository() {
-        // @formatter:off
         RegisteredClient registeredClient = RegisteredClient
                 .withId(UUID.randomUUID().toString())
                 .clientId(clientId)
@@ -109,22 +118,22 @@ public class AuthorizationServerConfig {
                 .scope("read")
                 .scope("write")
                 .authorizationGrantType(new AuthorizationGrantType("password"))
+                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .tokenSettings(tokenSettings())
                 .clientSettings(clientSettings())
                 .build();
-        // @formatter:on
 
         return new InMemoryRegisteredClientRepository(registeredClient);
     }
 
     @Bean
     public TokenSettings tokenSettings() {
-        // @formatter:off
         return TokenSettings.builder()
                 .accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED)
                 .accessTokenTimeToLive(Duration.ofSeconds(jwtDurationSeconds))
+                .refreshTokenTimeToLive(Duration.ofDays(refreshTokenDurationDays))
+                .reuseRefreshTokens(true)
                 .build();
-        // @formatter:on
     }
 
     @Bean
@@ -142,25 +151,52 @@ public class AuthorizationServerConfig {
         NimbusJwtEncoder jwtEncoder = new NimbusJwtEncoder(jwkSource());
         JwtGenerator jwtGenerator = new JwtGenerator(jwtEncoder);
         jwtGenerator.setJwtCustomizer(tokenCustomizer());
+
         OAuth2AccessTokenGenerator accessTokenGenerator = new OAuth2AccessTokenGenerator();
-        return new DelegatingOAuth2TokenGenerator(jwtGenerator, accessTokenGenerator);
+        OAuth2RefreshTokenGenerator refreshTokenGenerator = new OAuth2RefreshTokenGenerator(); // <-- adicionado
+
+        return new DelegatingOAuth2TokenGenerator(jwtGenerator, accessTokenGenerator, refreshTokenGenerator);
     }
+
 
     @Bean
     public OAuth2TokenCustomizer<JwtEncodingContext> tokenCustomizer() {
         return context -> {
-            OAuth2ClientAuthenticationToken principal = context.getPrincipal();
-            CustomUserAuthorities user = (CustomUserAuthorities) principal.getDetails();
-            List<String> authorities = user.getAuthorities().stream().map(x -> x.getAuthority()).toList();
-            if (context.getTokenType().getValue().equals("access_token")) {
-                // @formatter:off
+            Object principalObj = context.getPrincipal();
+            String username = null;
+            List<String> authorities = List.of();
+
+            if (principalObj instanceof Authentication) {
+                Authentication principal = (Authentication) principalObj;
+                Object details = principal.getDetails();
+
+                if (details instanceof CustomUserAuthorities) {
+                    CustomUserAuthorities user = (CustomUserAuthorities) details;
+                    username = user.getUsername();
+                    authorities = user.getAuthorities().stream()
+                            .map(GrantedAuthority::getAuthority)
+                            .collect(Collectors.toList());
+                } else if (principal.getPrincipal() instanceof UserDetails) {
+                    UserDetails ud = (UserDetails) principal.getPrincipal();
+                    username = ud.getUsername();
+                    authorities = ud.getAuthorities().stream()
+                            .map(GrantedAuthority::getAuthority)
+                            .collect(Collectors.toList());
+                } else {
+                    username = principal.getName();
+                }
+            } else {
+                username = context.getPrincipal().getName();
+            }
+
+            if ("access_token".equals(context.getTokenType().getValue())) {
                 context.getClaims()
                         .claim("authorities", authorities)
-                        .claim("username", user.getUsername());
-                // @formatter:on
+                        .claim("username", username);
             }
         };
     }
+
 
     @Bean
     public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
