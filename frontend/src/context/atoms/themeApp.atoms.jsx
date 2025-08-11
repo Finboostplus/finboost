@@ -3,14 +3,15 @@ import { atomWithStorage } from 'jotai/utils';
 
 const KEY = 'app_theme';
 
-// Inicializa e aplica o tema
-const init = () => {
-  const theme = localStorage?.getItem(KEY) || 'light';
-  document.documentElement.className = theme.trim().replace(/"/g, '');
-  return theme;
+// Tema padrão: 'light' (não precisa ler do localStorage manualmente)
+export const themeAtom = atomWithStorage(KEY, 'light');
+
+// Atualiza a classe do HTML quando o tema muda
+themeAtom.onMount = () => {
+  const theme = localStorage.getItem(KEY); // Jotai já gerencia isso
+  document.documentElement.className = JSON.parse(theme) || 'light';
 };
 
-export const themeAtom = atomWithStorage(KEY, init());
 export const enabledAtom = atom(get => get(themeAtom) === 'dark');
 export const toggleThemeAtom = atom(null, (get, set) => {
   const newTheme = get(themeAtom) === 'light' ? 'dark' : 'light';
