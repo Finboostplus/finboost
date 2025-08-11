@@ -2,13 +2,22 @@ import { Form, useActionData } from 'react-router';
 import Button from '../ui/Button';
 import InputUI from '../ui/Input';
 import { Menu, MenuItem } from '@headlessui/react';
-import MessageBox from '../MessageBox';
+import { useEffect } from 'react';
+import { customToast } from '../CustomToast';
 
 export default function LoginForm() {
   const actionData = useActionData();
-  const errors = actionData?.errors || {};
   const values = actionData?.values || {};
 
+  useEffect(() => {
+    if (actionData?.errors) {
+      customToast(
+        'Crendenciais inválidas',
+        'E-mail ou Senha incorretos',
+        'error'
+      );
+    }
+  }, [actionData]);
   return (
     <section className="w-full max-w-md mx-auto">
       <Form
@@ -29,7 +38,6 @@ export default function LoginForm() {
             required
             className="w-full h-11 rounded-xl border border-muted px-4 text-sm text-text placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition"
           />
-          {errors.email && <MessageBox>{errors.email[0]}</MessageBox>}
         </div>
 
         <div className="w-full flex flex-col gap-2">
@@ -40,11 +48,11 @@ export default function LoginForm() {
             id="password"
             name="password"
             type="password"
+            defaultValue={values.password || ''}
             placeholder="Digite sua senha"
             required
             className="w-full h-11 rounded-xl border border-muted px-4 text-sm text-text placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition"
           />
-          {errors.password && <MessageBox>{errors.password[0]}</MessageBox>}
         </div>
 
         <Button
