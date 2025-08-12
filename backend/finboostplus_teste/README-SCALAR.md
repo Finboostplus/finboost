@@ -45,12 +45,12 @@ A API utiliza autenticação JWT Bearer Token. Para testar endpoints protegidos:
 <dependency>
     <groupId>org.springdoc</groupId>
     <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-    <version>2.6.0</version>
+    <version>2.7.0</version>
 </dependency>
 <dependency>
     <groupId>org.springdoc</groupId>
     <artifactId>springdoc-openapi-starter-common</artifactId>
-    <version>2.6.0</version>
+    <version>2.7.0</version>
 </dependency>
 ```
 
