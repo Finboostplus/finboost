@@ -1,10 +1,12 @@
 package com.finboostplus.config.customgrant;
 
-import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Collection;
+
 public class CustomUserAuthorities {
-    private String username;
-    private Collection<? extends GrantedAuthority> authorities;
+    private final String username;
+    private final Collection<? extends GrantedAuthority> authorities;
 
     public CustomUserAuthorities(String username, Collection<? extends GrantedAuthority> authorities) {
         this.username = username;

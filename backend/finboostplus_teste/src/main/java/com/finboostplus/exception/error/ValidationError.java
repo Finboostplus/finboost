@@ -4,8 +4,8 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ValidationError extends CustomError{
-    private List<FieldMessage> errors = new ArrayList<>();
+public class ValidationError extends CustomError {
+    private final List<FieldMessage> errors = new ArrayList<>();
 
     public ValidationError(Instant timestamp, String title, Integer status, String message) {
         super(timestamp, title, status, message);
@@ -15,7 +15,7 @@ public class ValidationError extends CustomError{
         return errors;
     }
 
-    public void addError(String fieldName, String message){
+    public void addError(String fieldName, String message) {
         this.errors.add(new FieldMessage(fieldName, message));
     }
 }
