@@ -91,7 +91,7 @@ export default function GroupSettings() {
             <ButtonUI
               icon={<FiUserPlus className="w-6 h-6 sm:w-7 sm:h-7" />}
               title="Adicionar membro"
-              className="flex items-center gap-1 text-primary font-semibold hover:text-secondary transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex cursor-pointer items-center gap-1 text-primary font-semibold hover:text-secondary transition disabled:opacity-50 disabled:cursor-not-allowed"
               type="button"
             />
           </div>

@@ -18,6 +18,7 @@ export default function LoginForm() {
       );
     }
   }, [actionData]);
+
   return (
     <section className="w-full max-w-md mx-auto">
       <Form
@@ -64,18 +65,21 @@ export default function LoginForm() {
         <input type="hidden" name="type" value="login" />
 
         <hr className="w-full border-t border-neutral mt-2" />
-
-        <Menu as={'div'}>
+      </Form>
+      <Menu as="div">
+        <p className="mt-6 text-sm text-text text-center">
+          Primeiro acesso?
           <MenuItem>
             <a
               href="/register"
-              className="text-sm text-primary hover:underline"
+              className="text-primary hover:underline font-semibold"
+              aria-label="Voltar para a tela de login"
             >
-              Já possui uma conta?
+              <strong className="ml-1">Crie sua conta</strong>
             </a>
           </MenuItem>
-        </Menu>
-      </Form>
+        </p>
+      </Menu>
     </section>
   );
 }
