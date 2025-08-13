@@ -30,6 +30,7 @@ import org.springframework.security.oauth2.server.authorization.context.Authoriz
 import org.springframework.security.oauth2.server.authorization.token.DefaultOAuth2TokenContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
+import org.springframework.security.oauth2.core.OAuth2RefreshToken;
 import org.springframework.util.Assert;
 
 public class CustomPasswordAuthenticationProvider implements AuthenticationProvider {
@@ -81,16 +82,15 @@ public class CustomPasswordAuthenticationProvider implements AuthenticationProvi
                 .filter(scope -> registeredClient.getScopes().contains(scope))
                 .collect(Collectors.toSet());
 
-        //-----------Create a new Security Context Holder Context----------
-        OAuth2ClientAuthenticationToken oAuth2ClientAuthenticationToken = (OAuth2ClientAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        // ----------- set details ON THE clientPrincipal (fix class-cast issue) ----------
         CustomUserAuthorities customPasswordUser = new CustomUserAuthorities(username, user.getAuthorities());
-        oAuth2ClientAuthenticationToken.setDetails(customPasswordUser);
+        clientPrincipal.setDetails(customPasswordUser);
 
         var newcontext = SecurityContextHolder.createEmptyContext();
-        newcontext.setAuthentication(oAuth2ClientAuthenticationToken);
+        newcontext.setAuthentication(clientPrincipal);
         SecurityContextHolder.setContext(newcontext);
 
-        //-----------TOKEN BUILDERS----------
+        // ----------- TOKEN BUILDERS ----------
         DefaultOAuth2TokenContext.Builder tokenContextBuilder = DefaultOAuth2TokenContext.builder()
                 .registeredClient(registeredClient)
                 .principal(clientPrincipal)
@@ -105,7 +105,7 @@ public class CustomPasswordAuthenticationProvider implements AuthenticationProvi
                 .authorizationGrantType(new AuthorizationGrantType("password"))
                 .authorizedScopes(authorizedScopes);
 
-        //-----------ACCESS TOKEN----------
+        // ----------- ACCESS TOKEN ----------
         OAuth2TokenContext tokenContext = tokenContextBuilder.tokenType(OAuth2TokenType.ACCESS_TOKEN).build();
         OAuth2Token generatedAccessToken = this.tokenGenerator.generate(tokenContext);
         if (generatedAccessToken == null) {
@@ -124,11 +124,27 @@ public class CustomPasswordAuthenticationProvider implements AuthenticationProvi
             authorizationBuilder.accessToken(accessToken);
         }
 
+        // ----------- REFRESH TOKEN (mínima adição) ----------
+        OAuth2RefreshToken refreshToken = null;
+        if (registeredClient.getAuthorizationGrantTypes().contains(AuthorizationGrantType.REFRESH_TOKEN)) {
+            OAuth2TokenContext refreshTokenContext = tokenContextBuilder.tokenType(OAuth2TokenType.REFRESH_TOKEN).build();
+            OAuth2Token generatedRefreshToken = this.tokenGenerator.generate(refreshTokenContext);
+            if (generatedRefreshToken == null || !(generatedRefreshToken instanceof OAuth2RefreshToken)) {
+                OAuth2Error error = new OAuth2Error(OAuth2ErrorCodes.SERVER_ERROR,
+                        "The token generator failed to generate the refresh token.", ERROR_URI);
+                throw new OAuth2AuthenticationException(error);
+            }
+            refreshToken = (OAuth2RefreshToken) generatedRefreshToken;
+            authorizationBuilder.refreshToken(refreshToken);
+        }
+
+        // ----------- SAVE & RETURN ----------
         OAuth2Authorization authorization = authorizationBuilder.build();
         this.authorizationService.save(authorization);
 
-        return new OAuth2AccessTokenAuthenticationToken(registeredClient, clientPrincipal, accessToken);
+        return new OAuth2AccessTokenAuthenticationToken(registeredClient, clientPrincipal, accessToken, refreshToken);
     }
+
 
     @Override
     public boolean supports(Class<?> authentication) {
