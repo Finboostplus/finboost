@@ -15,6 +15,25 @@
 
 ---
 
+## 📚 Sumário
+
+<details>
+<summary><strong>Clique aqui para visualizar</strong></summary>
+  
+- [Demo ao Vivo](#-demo-ao-vivo)
+- [Funcionalidades](#-o-que-o-finboost-faz)
+- [Tecnologias](#-tecnologias)
+- [Estrutura do Projeto](#-estrutura-do-projeto)
+- [Como Executar](#-como-executar)
+- [Testes](#-testes)
+- [Equipe](#-nossa-equipe)
+- [Contribuir](#-como-contribuir)
+- [Sobre](#-sobre-o-projeto)
+
+</details>
+
+---
+
 ## 🚀 **Demo ao Vivo**
 
 <!-- Adicionar quando tiver deploy -->
