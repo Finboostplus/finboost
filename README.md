@@ -21,7 +21,7 @@
 <summary><strong>Clique aqui para visualizar</strong></summary>
   
 - [Demo ao Vivo](#-demo-ao-vivo)
-- [Funcionalidades](#-o-que-o-finboost-faz)
+- [Funcionalidades](#-funcionalidades-principais)
 - [Tecnologias](#-tecnologias)
 - [Estrutura do Projeto](#-estrutura-do-projeto)
 - [Como Executar](#-como-executar)
