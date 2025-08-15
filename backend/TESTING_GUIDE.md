@@ -6,6 +6,30 @@
   <img src="https://img.shields.io/badge/Cobertura-JaCoCo-orange" />
 </div>
 
+<details>
+<summary><strong>📚 Sumário</strong></summary>
+
+- [Camadas de Teste](#camadas-de-teste)
+- [Comandos](#comandos)
+- [Estrutura Recomendada](#estrutura-recomendada)
+- [Dependências Principais (já presentes)](#dependências-principais-já-presentes)
+- [Exemplos](#exemplos)
+  - [Teste Unitário (Service + Mockito)](#1-teste-unitário-service--mockito)
+  - [Controller (@WebMvcTest)](#2-controller-webmvctest)
+  - [Repository (@DataJpaTest)](#3-repository-datajpatest)
+  - [Integração (@SpringBootTest)](#4-integração-springboottest)
+  - [Segurança (Com MockUser)](#5-segurança-com-mockuser)
+  - [Test Data Factory](#6-test-data-factory)
+- [Cobertura](#cobertura)
+- [Boas Práticas](#boas-práticas)
+  - [Exceção](#exceção)
+- [Testcontainers (Opcional)](#testcontainers-opcional)
+- [Matchers Úteis (AssertJ)](#matchers-úteis-assertj)
+- [Problemas Comuns](#problemas-comuns)
+- [Execução Rápida](#execução-rápida)
+
+</details>
+
 ## Camadas de Teste
 - ✅ Unitários: testam classes isoladas (Services, Utils) com Mockito.
 - ✅ Slice Tests: @WebMvcTest (Controllers), @DataJpaTest (Repos), @JsonTest (Serialização).
@@ -209,4 +233,3 @@ Relatório: target/site/jacoco/index.html
   <strong>🧪 Testes Backend - FinBoost+</strong><br/>
   <em>Qualidade e confiabilidade garantidas</em>
 </div>
-

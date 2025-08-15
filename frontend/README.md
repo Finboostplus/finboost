@@ -1,9 +1,10 @@
 # 🎨 Frontend - FinBoost+
 
 <div align="center">
-  <img src="https://img.shields.io/badge/React-61dafb" alt="React">
-  <img src="https://img.shields.io/badge/Vite-646cff" alt="Vite">  
-  <img src="https://img.shields.io/badge/TailwindCSS-38bdf8" alt="Tailwind">
+  <img src="https://img.shields.io/badge/React-19+-61dafb" alt="React">
+  <img src="https://img.shields.io/badge/Vite-7+-646cff" alt="Vite">  
+  <img src="https://img.shields.io/badge/TailwindCSS-4+-38bdf8" alt="Tailwind">
+  <img src="https://img.shields.io/badge/Node-18+-339933" alt="Node.js">
   <img src="https://img.shields.io/badge/PWA-Enabled-brightgreen" alt="PWA">
   <img src="https://img.shields.io/badge/Status-Em_Desenvolvimento-yellow" alt="Status">
 </div>

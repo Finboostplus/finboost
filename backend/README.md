@@ -9,6 +9,23 @@
 
 **API REST** desenvolvida em **Spring Boot** para o FinBoost+. Fornece endpoints seguros para autenticação, gestão de grupos financeiros e controle de despesas compartilhadas.
 
+<details>
+<summary><strong>📚 Sumário</strong></summary>
+
+- [🚀 Funcionalidades Principais](#-funcionalidades-principais)
+- [🛠️ Tecnologias](#️-tecnologias)
+- [📁 Estrutura Resumida](#-estrutura-resumida)
+- [📘 Documentação da API (OpenAPI / Scalar)](#-documentação-da-api-openapi--scalar)
+- [⚡ Execução Rápida](#-execução-rápida)
+- [🧪 Testes](#-testes)
+- [📡 Endpoints Principais](#-endpoints-principais)
+- [🐳 Docker & Containerização](#-docker--containerização)
+- [🔧 Variáveis de Ambiente](#-variáveis-de-ambiente)
+- [🤝 Contribuindo](#-contribuindo)
+- [📞 Suporte](#-suporte)
+
+</details>
+
 ---
 
 ## 🚀 **Funcionalidades Principais**
