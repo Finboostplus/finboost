@@ -1,6 +1,6 @@
 # 💸 FinBoost+ - Controle Financeiro Pessoal e Compartilhado
 
-<div align="left">
+<div align="center">
   <img src="https://img.shields.io/badge/Status-Em_Desenvolvimento-yellow" alt="Status">
   <img src="https://img.shields.io/badge/Java-21+-orange" alt="Java">
   <img src="https://img.shields.io/badge/React-19+-61dafb" alt="React">
