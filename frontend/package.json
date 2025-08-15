@@ -22,7 +22,8 @@
     "react-router": "^7.6.3",
     "react-toastify": "^11.0.5",
     "recharts": "^3.1.0",
-    "zod": "^4.0.14"
+    "zod": "^4.0.14",
+    "zustand": "^5.0.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
