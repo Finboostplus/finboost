@@ -217,7 +217,8 @@ export default Button
 - Docs completas: https://finboostplus.github.io/finboostplus-app/
 
 ---
+
 <div align="center">
-  <strong>🎨 Frontend FinBoost+ • Escalável • Performático • Instalável</strong><br/>
-  <em>Grupo 7 - +Prati & Codifica</em>
+  <strong>🎨 Interface React - FinBoost+</strong><br/>
+  <em>Desenvolvido pelo Grupo 7 - +Prati & Codifica</em>
 </div>
