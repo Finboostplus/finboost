@@ -6,10 +6,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import com.finboostplus.DTO.UserRequestDTO;
+import com.finboostplus.DTO.UserCreateDTO;
 import jakarta.persistence.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import lombok.AllArgsConstructor;
@@ -58,7 +56,7 @@ public class User implements UserDetails {
 		this.createdAt = Instant.now();
 	}
 
-	public static User dtoToUser(UserRequestDTO dto){
+	public static User dtoToUser(UserCreateDTO dto){
 		return new User(dto.name(), dto.email(), dto.password(), dto.colorTheme());
 	}
 

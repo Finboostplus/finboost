@@ -1,6 +1,9 @@
 package com.finboostplus.controller;
 
-import com.finboostplus.DTO.UserRequestDTO;
+import com.finboostplus.DTO.UserCreateDTO;
+import com.finboostplus.DTO.UserUpdateDTO;
+import com.finboostplus.config.TokenRevocationUtil;
+import com.finboostplus.config.AuthorizationServerConfig;
 import com.finboostplus.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,6 +22,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
@@ -32,6 +36,9 @@ public class UserController {
 
 	@Autowired
 	UserService service;
+
+	@Autowired
+	OAuth2AuthorizationService authorizationService;
 
 	@PostMapping
 	@Operation(
@@ -77,7 +84,7 @@ public class UserController {
 			description = "Dados do usuário para cadastro",
 			required = true,
 			content = @Content(
-				schema = @Schema(implementation = UserRequestDTO.class),
+				schema = @Schema(implementation = UserCreateDTO.class),
 				examples = @ExampleObject(
 					name = "Exemplo de usuário",
 					value = """
@@ -91,7 +98,7 @@ public class UserController {
 				)
 			)
 		)
-		@Valid @RequestBody UserRequestDTO dto
+		@Valid @RequestBody UserCreateDTO dto
 	){
 		boolean userIsSaved = service.saveUser(dto);
 		if(userIsSaved){
@@ -175,12 +182,21 @@ public class UserController {
 		try{
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			Jwt jwtPrincipal = (Jwt) authentication.getPrincipal();
-			String email = jwtPrincipal.getClaim("username");
-			return "O usuário logado possui o e-mail: "+email;
+			return jwtPrincipal.getClaim("username");
 		}catch(Exception e){
 			throw new UsernameNotFoundException("Não foi encontrado o usuário");
 		}
 
+	}
+
+	@PreAuthorize("hasRole('USER')")
+	@PutMapping
+	public ResponseEntity<String> updateProfile(@Valid @RequestBody UserUpdateDTO dto){
+		boolean userIsSaved = service.updateUser(authenticated(), dto);
+		if(userIsSaved){
+			TokenRevocationUtil.revokeCurrentUserTokens(authorizationService);
+			return new ResponseEntity<>(HttpStatus.OK);
+		}return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
 }
