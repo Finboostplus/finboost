@@ -2,7 +2,9 @@ package com.finboostplus.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.finboostplus.DTO.UserRequestDTO;
+import com.finboostplus.model.Role;
 import com.finboostplus.model.User;
+import com.finboostplus.repository.RoleRepository;
 import com.finboostplus.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,18 +12,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -33,17 +39,28 @@ class UserControllerIntegrationTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    private Role userRole;
     private UserRequestDTO validUserDto;
 
     @BeforeEach
     void setUp() {
         userRepository.deleteAll();
+        roleRepository.deleteAll();
 
+        // Create default role for tests
+        userRole = new Role();
+        userRole.setAuthority("ROLE_USER");
+        userRole = roleRepository.save(userRole);
+
+        // Create valid user DTO for tests
         validUserDto = new UserRequestDTO(
                 "Integration Test User",
                 "integration@example.com",
@@ -78,7 +95,12 @@ class UserControllerIntegrationTest {
     @Test
     void saveProfile_shouldReturnBadRequest_whenEmailAlreadyExists() throws Exception {
         // Create user first
-        User existingUser = new User("Existing User", "integration@example.com", "pass", "dark");
+        User existingUser = new User();
+        existingUser.setName("Existing User");
+        existingUser.setEmail("integration@example.com");
+        existingUser.setPassword("pass");
+        existingUser.setColorTheme("dark");
+        existingUser.setCreatedAt(Instant.now());
         userRepository.save(existingUser);
 
         // Try to create another user with same email
@@ -93,17 +115,56 @@ class UserControllerIntegrationTest {
     }
 
     @Test
-    @WithMockUser(username = "integration@example.com", roles = "USER")
-    void getReturnAuthorized_shouldReturnUserEmail_whenAuthenticated() throws Exception {
-        mockMvc.perform(get("/user/whoareyou"))
+    void getReturnAuthorized_shouldReturnUserEmail_whenAuthenticatedWithJWT() throws Exception {
+        // Arrange: Create a real user in the database
+        User testUser = new User();
+        testUser.setName("Integration Test User");
+        testUser.setEmail("integration@example.com");
+        testUser.setPassword("encodedPassword");
+        testUser.setColorTheme("dark");
+        testUser.setCreatedAt(Instant.now());
+        testUser.setRoles(Set.of(userRole));
+        userRepository.save(testUser);
+
+        // Create JWT claims with proper username claim
+        Jwt jwt = Jwt.withTokenValue("test-token")
+                .header("alg", "RS256")
+                .claim("sub", "integration@example.com")
+                .claim("username", "integration@example.com") // Add username claim
+                .claim("scope", "read write")
+                .claim("authorities", new String[]{"ROLE_USER"})
+                .claim("exp", Instant.now().plus(1, ChronoUnit.HOURS))
+                .claim("iat", Instant.now())
+                .build();
+
+        // Act & Assert: Test with JWT authentication
+        mockMvc.perform(get("/user/whoareyou")
+                .with(jwt().jwt(jwt).authorities(new SimpleGrantedAuthority("ROLE_USER"))))
                 .andExpect(status().isOk())
                 .andExpect(content().string("O usuário logado possui o e-mail: integration@example.com"));
     }
 
     @Test
     void getReturnAuthorized_shouldReturn401_whenNotAuthenticated() throws Exception {
+        // Act & Assert: Test without authentication
         mockMvc.perform(get("/user/whoareyou"))
                 .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void getReturnAuthorized_shouldReturn403_whenInvalidToken() throws Exception {
+        // Act & Assert: Test with invalid/expired JWT
+        Jwt expiredJwt = Jwt.withTokenValue("expired-token")
+                .header("alg", "RS256")
+                .claim("sub", "expired@example.com")
+                .claim("authorities", new String[]{"ROLE_USER"})
+                .claim("exp", Instant.now().minus(1, ChronoUnit.HOURS)) // Expired
+                .claim("iat", Instant.now().minus(2, ChronoUnit.HOURS))
+                .build();
+
+        mockMvc.perform(get("/user/whoareyou")
+                .with(jwt().jwt(expiredJwt)))
+                .andExpect(status().isForbidden()); // Expect 403 instead of 401 for invalid scope
     }
 
     @Test

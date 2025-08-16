@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.finboostplus</groupId>
-    <artifactId>com.fimboostplus</artifactId>
+    <artifactId>finboostplus-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>demo</name>
-    <description>Demo project for Spring Boot</description>
+    <name>FinBoost Plus Server</name>
+    <description>Backend server for FinBoost Plus - Personal Financial Management Application</description>
     <url/>
     <licenses>
         <license/>
