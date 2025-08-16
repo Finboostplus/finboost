@@ -68,3 +68,13 @@ import { afterEach } from 'vitest';
 afterEach(() => {
   if (window.matchMedia?.mockReset) window.matchMedia.mockReset();
 });
+
+// Alinha URLSearchParams entre jsdom (window) e Node (undici)
+// Corrige erro: "Request constructor: Expected init.body (\"URLSearchParams {}\") to be an instance of URLSearchParams"
+if (typeof window !== 'undefined' && window.URLSearchParams) {
+  // Use a versão do jsdom para o ambiente global do Node
+  // evitando instância de reinos diferentes
+  // eslint-disable-next-line no-global-assign
+  URLSearchParams = window.URLSearchParams;
+  globalThis.URLSearchParams = window.URLSearchParams;
+}
