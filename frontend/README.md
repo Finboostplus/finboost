@@ -9,8 +9,8 @@
   <img src="https://img.shields.io/badge/Status-Em_Desenvolvimento-yellow" alt="Status">
 </div>
 
-Interface web moderna do FinBoost+ em React. Foco em UX responsiva, acessibilidade, PWA e arquitetura escalável.
-
+Interface web moderna do FinBoost+ desenvolvida em React. Oferece experiência fluida para gerenciamento de finanças compartilhadas, com design responsivo e componentes acessíveis.
+    
 ---
 
 ## 📚 Sumário
@@ -23,7 +23,7 @@ Interface web moderna do FinBoost+ em React. Foco em UX responsiva, acessibilida
   - [🚀 Visão Geral](#-visão-geral)
   - [✅ Funcionalidades Principais](#-funcionalidades-principais)
   - [🛠️ Tecnologias](#️-tecnologias)
-  - [📁 Arquitetura & Estrutura](#-arquitetura--estrutura)
+  - [📁 Arquitetura \& Estrutura](#-arquitetura--estrutura)
     - [Princípios](#princípios)
   - [📱 PWA (Progressive Web App)](#-pwa-progressive-web-app)
     - [Instalação](#instalação)
@@ -31,10 +31,11 @@ Interface web moderna do FinBoost+ em React. Foco em UX responsiva, acessibilida
   - [⚡ Execução Rápida](#-execução-rápida)
   - [🔧 Configuração / Ambiente](#-configuração--ambiente)
   - [🧪 Testes](#-testes)
-  - [🎨 Tema & Estilo](#-tema--estilo)
+  - [🎨 Tema \& Estilo](#-tema--estilo)
   - [🤝 Padrões de Desenvolvimento](#-padrões-de-desenvolvimento)
-  - [🚀 Performance](#-performance)
   - [🔧 Troubleshooting](#-troubleshooting)
+    - [Problemas Comuns](#problemas-comuns)
+    - [Performance](#performance)
   - [📞 Suporte](#-suporte)
 </details>
 
@@ -197,13 +198,6 @@ export default Button
 
 ---
 
-## 🚀 Performance
-- Lighthouse alvo: PWA & Performance > 90
-- Bundle inicial < 500KB (gzip) 
-- Estratégias: Code splitting por rota, cache SW, imagens otimizadas
-
----
-
 ## 🔧 Troubleshooting
 
 ### Problemas Comuns
@@ -211,11 +205,15 @@ export default Button
 - **Build falha**: Limpar cache com `rm -rf node_modules package-lock.json && npm install`
 - **Testes quebram**: Verificar versão do Node (18+)
 
+### Performance
+- **Estratégias**: Code splitting por rota, cache SW, imagens otimizadas
+
 ---
 
 ## 📞 Suporte
 - Issues: https://github.com/Finboostplus/finboostplus-app/issues
 - Docs completas: https://finboostplus.github.io/finboostplus-app/
+- Email: finboostplus@gmail.com
 
 ---
 
